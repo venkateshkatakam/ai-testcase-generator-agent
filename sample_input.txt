@@ -1,0 +1,28 @@
+As a registered customer, I want to reset my forgotten password so that I can
+regain access to my account.
+
+Acceptance criteria:
+1. A customer submits an email address on the password reset page.
+2. The system shows the same confirmation message for registered and unknown
+   email addresses, without revealing whether an account exists.
+3. Registered customers receive an email with a single-use reset link that
+   expires after 15 minutes. Unknown addresses receive no email.
+4. The new password must be between 12 and 64 characters inclusive, and contain
+   at least one uppercase letter, one lowercase letter, and one digit.
+5. After a successful reset, the old password no longer works and all existing
+   sessions for that account are invalidated.
+6. Invalid, expired, or previously used reset links must be rejected.
+7. Reset requests are limited to 3 per email address within 60 minutes.
+
+API contract:
+- POST /api/password-reset accepts JSON {"email": "customer@example.com"}.
+- A well-formed email receives HTTP 202 and the generic confirmation message,
+  whether or not an account exists.
+- Invalid email syntax receives HTTP 400; rate-limited requests receive HTTP 429.
+- POST /api/password-reset/confirm accepts JSON with token and new_password.
+- Successful confirmation returns HTTP 204. Invalid, expired, or reused tokens,
+  and passwords that violate the policy, return HTTP 400.
+
+Regression scope: normal login, logout, and unrelated customer accounts must
+continue to work. Email delivery failure behavior and exact response bodies
+are not yet specified; record these as open questions rather than inventing them.

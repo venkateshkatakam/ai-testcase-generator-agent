@@ -1,0 +1,4 @@
+# Only maintainers building desktop downloads need these packages.
+-r requirements.txt
+pyinstaller>=6.16,<7.0
+playwright>=1.50,<2.0
