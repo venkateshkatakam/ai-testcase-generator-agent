@@ -45,21 +45,48 @@ Playwright and its browser are build tools, not part of the end-user download.
 
 Only explicitly selected application resources are packaged. Real `.env` files,
 logs, the developer environment, and downloaded AI models are not bundled.
-Never add them to the PyInstaller spec or commit generated build folders.
+Never add them to the PyInstaller spec or commit `build/`, `dist/`, or `release/`.
+These folders are ignored. Keep the final local archives and checksums for
+testing, then upload them as GitHub Release assets instead of Git files.
 
 ## Build All Platforms on GitHub
 
 1. Push the project to your GitHub repository.
 2. Open **Actions > Build Desktop Downloads > Run workflow**.
-3. Wait for the Windows x64, Linux x64, Mac Intel, and Mac Apple Silicon jobs.
-4. Download the build artifacts from the workflow run. They contain the app
+3. Optionally enable **Create a draft GitHub Release** and enter a new version
+   tag such as `v0.2.0`. Leave it unchecked for build artifacts only.
+4. Wait for the Windows x64, Linux x64, Mac Intel, and Mac Apple Silicon jobs.
+5. Download the build artifacts from the workflow run. They contain the app
    archives and checksums; extract the artifact wrapper before sharing them.
 
-To prepare a GitHub Release, push a version tag such as `v0.2.0`. After every
-platform passes, the workflow creates a **draft release** with the downloads.
-Review its assets and notes, then publish the draft yourself. The workflow does
-not publish a public release automatically. GitHub Actions usage may consume
+If the draft-release option was selected, all four successful platform builds
+are attached to the draft. Review its assets and notes in **Releases**, then
+publish the draft yourself. Alternatively, pushing a version tag such as
+`v0.2.0` triggers all builds and a draft release. Use a new tag for a new release;
+do not reuse a version that has already been published.
+
+Each build uploads only its own OS/CPU archive and checksum, so unrelated
+archives cannot be uploaded under another platform or overwrite the fresh
+build when artifacts are merged. These downloads are built on
+their respective native OS runners, not cross-compiled on your computer.
+
+The workflow does not publish a public release automatically or commit generated
+artifacts back to the repository. GitHub Actions usage may consume
 billable minutes depending on your repository visibility and account plan.
+
+## What Users Can Download
+
+GitHub's **Releases** page and the repository's `release/` directory are different:
+
+- The ignored local `release/` folder contains your build output. It does not
+  create a GitHub Release or automatically upload downloads.
+- Keep binaries out of Git. Push the workflow and source, then run the native
+  platform builds to create and attach their downloads to a draft release.
+- Workflow artifacts are available from the Actions run after a build succeeds.
+- Release assets become publicly visible after the draft release is published.
+- Source support or a configured matrix does not mean every binary has already
+  been built or tested. Currently only the Mac Apple Silicon binary was built
+  and browser-checked locally; verify the other jobs before announcing them.
 
 ## Before Public Distribution
 

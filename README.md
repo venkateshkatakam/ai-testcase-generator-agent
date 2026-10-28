@@ -5,13 +5,32 @@ Choose only the outputs you need and download the results.
 
 **Outputs:** Test Cases, Regression Impact, Playwright Scripts, REST Assured Tests.
 
-Runs on **Windows, macOS, and Linux**. Generated scripts are drafts to review,
-not tests automatically executed against your application.
+Source support and build jobs cover **Windows, macOS, and Linux**. Generated
+scripts are drafts to review, not tests automatically executed against your application.
+
+## Available Downloads
+
+Only the **Mac Apple Silicon** app has been built and checked locally so far.
+Other platform builds are configured, but their downloads are not available
+until the GitHub Actions workflow runs successfully and the files are uploaded.
+
+| Platform | Current status |
+| --- | --- |
+| Mac Apple Silicon | Built and checked locally; upload to GitHub Releases to share |
+| Mac Intel | Build configured; not yet published |
+| Windows x64 | Build configured; not yet published |
+| Linux x64 | Build configured; not yet published |
+
+Download published apps from this repository's **Releases** section. If no
+assets are listed, the downloads have not been published yet.
+
+GitHub **Releases** is separate from the local `release/` folder. App archives
+and checksums are uploaded as Release assets, not committed to source control.
 
 ## Use the App (No Python Needed)
 
-1. Open this repository's **Releases** section and download the app for your
-   computer. If no release has been published, use the source setup below.
+1. Download your platform's app from this repository's **Releases** section.
+   If your platform has no download yet, use the source setup below.
 2. Extract the download and open the app:
 
 | Your computer | Download ending | Open after extracting |
@@ -107,6 +126,15 @@ Tests do not need an API key or a local model:
 Use the first command on Windows and the second on macOS/Linux. GitHub Actions
 is configured to run the tests on all three platforms.
 
-For building and publishing app downloads, see [BUILDING.md](BUILDING.md).
-Commit source code and documentation, not `.env`, `.venv`, `build/`, `dist/`,
-or `release/`. Publish app downloads as **GitHub Release assets**, not Git files.
+To publish downloads:
+
+1. Commit and push the source code, documentation, and workflow changes.
+2. Open **Actions > Build Desktop Downloads > Run workflow** on GitHub.
+3. Enable **Create a draft GitHub Release**, enter an unused tag such as
+   `v0.2.0`, and start the workflow.
+4. Wait for all four platform builds to pass.
+5. Open **Releases**, review the draft's app archives and checksums, and publish it.
+
+See [BUILDING.md](BUILDING.md) for details. Keep `.env`, `.venv`, `build/`, `dist/`,
+and `release/` out of Git. Ignoring local downloads does not prevent them from
+being uploaded as Release assets, and does not delete your local copies.

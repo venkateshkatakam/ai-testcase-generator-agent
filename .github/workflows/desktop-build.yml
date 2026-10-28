@@ -2,6 +2,15 @@ name: Build Desktop Downloads
 
 on:
   workflow_dispatch:
+    inputs:
+      create_draft_release:
+        description: Create a draft GitHub Release after all platform builds pass
+        type: boolean
+        default: false
+      release_tag:
+        description: New version tag for the draft release (for example v0.2.0)
+        type: string
+        default: v0.2.0
   push:
     tags: ["v*"]
 
@@ -44,12 +53,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: desktop-${{ matrix.artifact }}
-          path: release/*
+          path: release/QA-Intelligence-Agent-${{ matrix.artifact }}.*
           if-no-files-found: error
           compression-level: 0
 
   draft-release:
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/v') || inputs.create_draft_release == true
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -62,6 +71,8 @@ jobs:
           merge-multiple: true
       - uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || inputs.release_tag }}
+          target_commitish: ${{ github.sha }}
           draft: true
           generate_release_notes: true
           files: release/*
