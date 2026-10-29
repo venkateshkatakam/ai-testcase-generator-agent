@@ -5,41 +5,34 @@ Choose only the outputs you need and download the results.
 
 **Outputs:** Test Cases, Regression Impact, Playwright Scripts, REST Assured Tests.
 
-Source support and build jobs cover **Windows, macOS, and Linux**. Generated
+Available for **Windows, macOS, and Linux**. Generated
 scripts are drafts to review, not tests automatically executed against your application.
 
 ## Available Downloads
 
-Only the **Mac Apple Silicon** app has been built and checked locally so far.
-Other platform builds are configured, but their downloads are not available
-until the GitHub Actions workflow runs successfully and the files are uploaded.
+**v0.2.0 is published.** All four platform builds completed successfully in
+GitHub Actions. Download the app for your computer from the
+[latest release](https://github.com/venkateshkatakam/ai-testcase-generator-agent/releases/latest):
 
-| Platform | Current status |
-| --- | --- |
-| Mac Apple Silicon | Built and checked locally; upload to GitHub Releases to share |
-| Mac Intel | Build configured; not yet published |
-| Windows x64 | Build configured; not yet published |
-| Linux x64 | Build configured; not yet published |
+| Your computer | Download | Open after extracting |
+| --- | --- | --- |
+| Windows (Intel/AMD 64-bit) | [Windows ZIP](https://github.com/venkateshkatakam/ai-testcase-generator-agent/releases/latest/download/QA-Intelligence-Agent-windows-x64.zip) | `QAIntelligenceAgent.exe` |
+| Mac (Apple Silicon) | [Apple Silicon ZIP](https://github.com/venkateshkatakam/ai-testcase-generator-agent/releases/latest/download/QA-Intelligence-Agent-macos-arm64.zip) | `QA Intelligence Agent.app` |
+| Mac (Intel) | [Intel Mac ZIP](https://github.com/venkateshkatakam/ai-testcase-generator-agent/releases/latest/download/QA-Intelligence-Agent-macos-x64.zip) | `QA Intelligence Agent.app` |
+| Linux (Intel/AMD 64-bit) | [Linux TAR.GZ](https://github.com/venkateshkatakam/ai-testcase-generator-agent/releases/latest/download/QA-Intelligence-Agent-linux-x64.tar.gz) | `QAIntelligenceAgent` |
 
-Download published apps from this repository's **Releases** section. If no
-assets are listed, the downloads have not been published yet.
+Published means the app is available to download and launch. Before generating
+results, set up **Ollama and a model** or an **OpenAI API key** as described below.
+Download an app archive, not GitHub's **Source code** archives. SHA-256 checksum
+files are also available under the release's **Assets** section.
 
 GitHub **Releases** is separate from the local `release/` folder. App archives
 and checksums are uploaded as Release assets, not committed to source control.
 
 ## Use the App (No Python Needed)
 
-1. Download your platform's app from this repository's **Releases** section.
-   If your platform has no download yet, use the source setup below.
-2. Extract the download and open the app:
-
-| Your computer | Download ending | Open after extracting |
-| --- | --- | --- |
-| Windows (Intel/AMD 64-bit) | `windows-x64.zip` | `QAIntelligenceAgent.exe` |
-| Mac (Apple Silicon) | `macos-arm64.zip` | `QA Intelligence Agent.app` |
-| Mac (Intel) | `macos-x64.zip` | `QA Intelligence Agent.app` |
-| Linux (Intel/AMD 64-bit) | `linux-x64.tar.gz` | `QAIntelligenceAgent` |
-
+1. Download the app for your computer using the table above.
+2. Extract the download and open the app listed in the last column.
 3. The app opens in your browser. Choose an AI option below.
 4. Paste a requirement or select **Load sample**.
 5. Select your **Required outputs**, set **Tests per category**, then select
@@ -131,7 +124,7 @@ To publish downloads:
 1. Commit and push the source code, documentation, and workflow changes.
 2. Open **Actions > Build Desktop Downloads > Run workflow** on GitHub.
 3. Enable **Create a draft GitHub Release**, enter an unused tag such as
-   `v0.2.0`, and start the workflow.
+   `v0.2.1`, and start the workflow. Do not reuse the published `v0.2.0` tag.
 4. Wait for all four platform builds to pass.
 5. Open **Releases**, review the draft's app archives and checksums, and publish it.
 

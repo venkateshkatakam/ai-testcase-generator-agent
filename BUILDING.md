@@ -84,9 +84,11 @@ GitHub's **Releases** page and the repository's `release/` directory are differe
   platform builds to create and attach their downloads to a draft release.
 - Workflow artifacts are available from the Actions run after a build succeeds.
 - Release assets become publicly visible after the draft release is published.
-- Source support or a configured matrix does not mean every binary has already
-  been built or tested. Currently only the Mac Apple Silicon binary was built
-  and browser-checked locally; verify the other jobs before announcing them.
+- v0.2.0 is published with Windows x64, Linux x64, Intel Mac, and Apple Silicon
+  Mac downloads after all four native GitHub Actions builds passed. The Mac
+  Apple Silicon build was also checked locally. For future releases, verify
+  all jobs and attached assets before publishing; configuration alone does not
+  prove a new build succeeded.
 
 ## Before Public Distribution
 
